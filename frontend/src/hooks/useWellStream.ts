@@ -6,7 +6,15 @@ import { useStore } from '@/store/useStore'
 import type { WellState } from '@/types/well'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const WS_BASE = (import.meta as any).env?.VITE_WS_URL ?? `ws://${window.location.hostname}:8000`
+const getWsBase = () => {
+  const envUrl = (import.meta as any).env?.VITE_WS_URL
+  if (envUrl) return envUrl
+  if (typeof window !== 'undefined') {
+    const proto = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
+    return `${proto}//${window.location.host}`
+  }
+  return 'ws://localhost:8000'
+}
 
 export function useWellStream(wellId: string | null) {
   const wsRef = useRef<WebSocket | null>(null)
@@ -17,7 +25,7 @@ export function useWellStream(wellId: string | null) {
     if (wsRef.current) {
       wsRef.current.close()
     }
-    const url = `${WS_BASE}/ws/stream/${wellId}`
+    const url = `${getWsBase()}/ws/stream/${wellId}`
     const ws = new WebSocket(url)
     wsRef.current = ws
 

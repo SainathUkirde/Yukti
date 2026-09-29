@@ -1,6 +1,6 @@
 # Node
 frontend/node_modules/
-frontend/dist/
+# frontend/dist/ (tracked so Render Python web service serves UI immediately)
 
 # Python
 __pycache__/

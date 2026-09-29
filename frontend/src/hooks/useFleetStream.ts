@@ -6,7 +6,15 @@ import { useStore } from '@/store/useStore'
 import type { WellSummary } from '@/types/well'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const WS_BASE = (import.meta as any).env?.VITE_WS_URL ?? `ws://${window.location.hostname}:8000`
+const getWsBase = () => {
+  const envUrl = (import.meta as any).env?.VITE_WS_URL
+  if (envUrl) return envUrl
+  if (typeof window !== 'undefined') {
+    const proto = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
+    return `${proto}//${window.location.host}`
+  }
+  return 'ws://localhost:8000'
+}
 
 export function useFleetStream() {
   const wsRef = useRef<WebSocket | null>(null)
@@ -14,7 +22,7 @@ export function useFleetStream() {
 
   useEffect(() => {
     const connect = () => {
-      const ws = new WebSocket(`${WS_BASE}/ws/fleet`)
+      const ws = new WebSocket(`${getWsBase()}/ws/fleet`)
       wsRef.current = ws
 
       ws.onmessage = (ev) => {

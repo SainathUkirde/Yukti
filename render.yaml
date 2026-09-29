@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: yukti-backend
+    runtime: python
+    rootDir: .
+    buildCommand: pip install -r backend/requirements.txt && python data/generate.py && python ml/training/train_forecaster.py && python ml/training/train_fault_classifier.py && python ml/training/train_failure_risk.py
+    startCommand: uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: NUM_WELLS
+        value: 5
+      - key: TIME_ACCELERATION
+        value: 10
+      - key: TICK_INTERVAL_S
+        value: 1.5
+      - key: LOG_LEVEL
+        value: INFO
+      - key: CORS_ORIGINS
+        value: "*"
+      - key: PYTHON_VERSION
+        value: 3.11.0

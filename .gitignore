@@ -1,0 +1,40 @@
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+.venv
+venv/
+
+# pytest
+.pytest_cache/
+
+# Database
+*.db
+*.sqlite3
+
+# ML model artifacts
+models/artifacts/*.pkl
+models/artifacts/*.joblib
+models/artifacts/*.npz
+models/artifacts/*.h5
+
+# Synthetic data (regenerated at build time)
+data/synthetic/*.parquet
+data/synthetic/*.csv
+data/synthetic/*.json
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

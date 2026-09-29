@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Well-to-Surface Digital Twin
 ## CSS + SRP Optimization — Baghewala Heavy Oil Field
 ### Smart India Hackathon (SIH) Demo
@@ -177,3 +178,6 @@ USE_CNN_CLASSIFIER=false  # Set true to use optional CNN for dyno cards (require
 
 MIT License. See [LICENSE](LICENSE).
 Physics equations are from published petroleum engineering literature (cited in code).
+=======
+# Yukti
+>>>>>>> 5fdcc760127f389bfd97bed27e93d21402abde25

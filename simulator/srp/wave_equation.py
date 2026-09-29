@@ -225,7 +225,7 @@ def simulate_stroke(
     pump_stroke_range = pump_pos_raw.max() - pump_pos_raw.min()
     pump_load_range = pump_load.max() - pump_load.min()
     ideal_area = pump_stroke_range * pump_load_range if pump_stroke_range > 0 else 1.0
-    actual_area = float(np.trapz(pump_load, pump_pos_raw))
+    actual_area = float(np.trapezoid(pump_load, pump_pos_raw) if hasattr(np, 'trapezoid') else np.trapz(pump_load, pump_pos_raw))
     fillage = float(np.clip(abs(actual_area) / max(ideal_area, 1e-6), 0.1, 1.0))
 
     # Fillage reduced when rod floating (viscous drag prevents full pump stroke) [2]

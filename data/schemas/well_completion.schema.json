@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Well Completion",
+  "description": "Static well completion and reservoir parameters.",
+  "type": "object",
+  "required": ["well_id", "total_depth_m", "initial_reservoir_temp_c", "api_gravity", "provenance"],
+  "properties": {
+    "well_id": { "type": "string" },
+    "well_name": { "type": "string" },
+    "latitude": { "type": "number" },
+    "longitude": { "type": "number" },
+    "total_depth_m": { "type": "number", "minimum": 100 },
+    "pay_zone_top_m": { "type": "number" },
+    "pay_zone_bottom_m": { "type": "number" },
+    "pay_thickness_m": { "type": "number", "minimum": 0 },
+    "porosity_fraction": { "type": "number", "minimum": 0, "maximum": 1 },
+    "permeability_md": { "type": "number", "minimum": 0 },
+    "initial_reservoir_temp_c": {
+      "type": "number",
+      "description": "FIELD_FACT: 46-48°C for Baghewala"
+    },
+    "initial_reservoir_pressure_kpa": { "type": "number", "minimum": 0 },
+    "api_gravity": {
+      "type": "number",
+      "description": "FIELD_FACT: 17-19° for Baghewala heavy crude"
+    },
+    "rod_string_grade": { "type": "string" },
+    "pump_plunger_dia_mm": { "type": "number", "minimum": 0 },
+    "provenance": { "type": "string" },
+    "notes": { "type": "string" }
+  }
+}

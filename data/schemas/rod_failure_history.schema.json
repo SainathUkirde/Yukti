@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Rod Failure History",
+  "description": "Rod failure and pump unsetting event. SYNTHETIC_HISTORICAL.",
+  "type": "object",
+  "required": ["well_id", "failure_date", "failure_type", "provenance"],
+  "properties": {
+    "well_id": { "type": "string" },
+    "failure_date": { "type": "string", "format": "date" },
+    "cycle_number": { "type": "integer" },
+    "failure_type": { "type": "string", "enum": ["rod_break", "pump_unset", "rod_part", "tubing_wear"] },
+    "depth_m": { "type": "number", "minimum": 0 },
+    "t_production_days_at_failure": { "type": "number", "minimum": 0 },
+    "risk_score_at_failure": { "type": "number", "minimum": 0, "maximum": 100 },
+    "goodman_ratio_at_failure": { "type": "number", "minimum": 0 },
+    "rod_float_ratio_at_failure": { "type": "number", "minimum": 0 },
+    "reservoir_temp_c": { "type": "number" },
+    "oil_viscosity_cp": { "type": "number", "minimum": 0 },
+    "spm_at_failure": { "type": "number", "minimum": 0 },
+    "peak_load_kn_at_failure": { "type": "number", "minimum": 0 },
+    "provenance": { "type": "string", "enum": ["SYNTHETIC_HISTORICAL", "FIELD_FACT"] }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SRP Operating Data",
+  "description": "Hourly SRP operating record. SYNTHETIC_HISTORICAL.",
+  "type": "object",
+  "required": ["well_id", "timestamp", "spm", "stroke_length_m", "provenance"],
+  "properties": {
+    "well_id": { "type": "string" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "cycle_number": { "type": "integer" },
+    "t_production_days": { "type": "number" },
+    "spm": { "type": "number", "minimum": 0, "maximum": 20 },
+    "stroke_length_m": { "type": "number", "minimum": 0.1, "maximum": 6 },
+    "vfd_frequency_hz": { "type": "number", "minimum": 10, "maximum": 70 },
+    "motor_current_a": { "type": "number", "minimum": 0 },
+    "motor_power_kw": { "type": "number", "minimum": 0 },
+    "polished_rod_load_kn": { "type": "number", "minimum": 0 },
+    "min_rod_load_kn": { "type": "number", "minimum": 0 },
+    "pump_fillage_fraction": { "type": "number", "minimum": 0, "maximum": 1 },
+    "pump_efficiency_fraction": { "type": "number", "minimum": 0, "maximum": 1 },
+    "kwh_per_bbl": { "type": "number", "minimum": 0 },
+    "oil_rate_m3d": { "type": "number", "minimum": 0 },
+    "reservoir_temp_c": { "type": "number" },
+    "oil_viscosity_cp": { "type": "number", "minimum": 0 },
+    "rod_float_risk_ratio": { "type": "number", "minimum": 0 },
+    "rod_float_risk_score": { "type": "number", "minimum": 0, "maximum": 100 },
+    "active_fault": { "type": ["string", "null"] },
+    "provenance": { "type": "string", "enum": ["SYNTHETIC_HISTORICAL", "SIMULATED_LIVE", "FIELD_FACT"] }
+  }
+}

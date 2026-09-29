@@ -1,0 +1,87 @@
+/* src/index.css — global SCADA dark theme styles */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --border: #30363d;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --accent: #388bfd;
+    --success: #3fb950;
+    --warning: #d29922;
+    --danger: #f85149;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body, #root {
+    height: 100%;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #484f58; }
+}
+
+@layer components {
+  .card {
+    @apply bg-surface border border-border rounded-lg p-4;
+  }
+
+  .card-sm {
+    @apply bg-surface border border-border rounded p-3;
+  }
+
+  .kpi-value {
+    @apply text-2xl font-bold tabular-nums;
+  }
+
+  .kpi-label {
+    @apply text-xs text-muted uppercase tracking-wide;
+  }
+
+  .badge-prov {
+    @apply text-[10px] font-mono px-1.5 py-0.5 rounded-sm font-semibold;
+  }
+
+  .phase-injection  { @apply text-blue-400 bg-blue-900/30; }
+  .phase-soak       { @apply text-amber-400 bg-amber-900/30; }
+  .phase-production { @apply text-green-400 bg-green-900/30; }
+  .phase-idle       { @apply text-gray-400 bg-gray-900/30; }
+
+  .status-green { @apply text-green-400; }
+  .status-amber { @apply text-amber-400; }
+  .status-red   { @apply text-red-400; }
+
+  .btn {
+    @apply px-3 py-1.5 rounded text-sm font-medium transition-colors duration-150 cursor-pointer;
+  }
+
+  .btn-primary {
+    @apply btn bg-accent text-white hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply btn bg-surface border border-border text-text hover:border-accent hover:text-accent;
+  }
+
+  .btn-danger {
+    @apply btn bg-danger/20 border border-danger/40 text-red-400 hover:bg-danger/30;
+  }
+
+  .input {
+    @apply bg-bg border border-border rounded px-3 py-1.5 text-sm text-text
+           focus:outline-none focus:border-accent w-full;
+  }
+
+  .divider { @apply border-t border-border my-3; }
+}

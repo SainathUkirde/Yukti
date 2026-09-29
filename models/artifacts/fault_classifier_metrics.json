@@ -1,0 +1,73 @@
+{
+  "accuracy": 0.8975,
+  "f1_macro": 0.8756,
+  "f1_per_class": {
+    "fluid_pound": 0.8031,
+    "gas_interference": 0.852,
+    "normal": 0.9281,
+    "pump_off": 0.9117,
+    "pump_unsetting": 0.8525,
+    "rod_floating": 0.9065
+  },
+  "confusion_matrix": [
+    [
+      104,
+      4,
+      16,
+      4,
+      3,
+      13
+    ],
+    [
+      3,
+      141,
+      14,
+      4,
+      2,
+      7
+    ],
+    [
+      5,
+      4,
+      574,
+      8,
+      2,
+      4
+    ],
+    [
+      0,
+      2,
+      12,
+      222,
+      3,
+      4
+    ],
+    [
+      1,
+      4,
+      9,
+      4,
+      104,
+      6
+    ],
+    [
+      2,
+      5,
+      15,
+      2,
+      2,
+      291
+    ]
+  ],
+  "classes": [
+    "fluid_pound",
+    "gas_interference",
+    "normal",
+    "pump_off",
+    "pump_unsetting",
+    "rod_floating"
+  ],
+  "n_train": 6400,
+  "n_val": 1600,
+  "backend": "lightgbm"
+}

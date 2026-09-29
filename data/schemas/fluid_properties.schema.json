@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Fluid Properties",
+  "description": "Fluid property lookup table derived from physics equations. LITERATURE_ASSUMPTION.",
+  "type": "object",
+  "properties": {
+    "temperature_c": { "type": "number" },
+    "api_gravity": { "type": "number" },
+    "viscosity_cp": { "type": "number", "minimum": 0 },
+    "oil_density_kg_m3": { "type": "number", "minimum": 0 },
+    "formation_volume_factor": { "type": "number" },
+    "provenance": { "type": "string", "enum": ["LITERATURE_ASSUMPTION"] },
+    "source": {
+      "type": "string",
+      "description": "Andrade (1930); Ahmed (2010) Reservoir Engineering Handbook"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "reservoir_temp_c": {
+    "q50_mae": 0.2643,
+    "q50_rmse": 0.3269,
+    "coverage_80pct": 0.698,
+    "n_train": 3995,
+    "n_val": 999,
+    "backend": "lightgbm"
+  },
+  "oil_viscosity_cp": {
+    "q50_mae": 34.806,
+    "q50_rmse": 42.9761,
+    "coverage_80pct": 0.708,
+    "n_train": 3995,
+    "n_val": 999,
+    "backend": "lightgbm"
+  },
+  "oil_rate_m3d": {
+    "q50_mae": 0.0048,
+    "q50_rmse": 0.0062,
+    "coverage_80pct": 0.726,
+    "n_train": 3995,
+    "n_val": 999,
+    "backend": "lightgbm"
+  }
+}

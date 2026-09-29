@@ -1,0 +1,41 @@
+version: '3.9'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: baghewala_backend
+    ports:
+      - "8000:8000"
+    environment:
+      - NUM_WELLS=${NUM_WELLS:-10}
+      - TIME_ACCELERATION=${TIME_ACCELERATION:-10}
+      - TICK_INTERVAL_S=${TICK_INTERVAL_S:-1.5}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - CORS_ORIGINS=http://localhost,http://localhost:80
+    volumes:
+      - ./data/synthetic:/app/data/synthetic
+      - ./models/artifacts:/app/models/artifacts
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: baghewala_frontend
+    ports:
+      - "80:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+
+networks:
+  default:
+    name: baghewala_net

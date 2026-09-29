@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Production History",
+  "description": "Daily production record for one Baghewala well. SYNTHETIC_HISTORICAL.",
+  "type": "object",
+  "required": ["well_id", "date", "cycle_number", "phase", "oil_rate_m3d", "provenance"],
+  "properties": {
+    "well_id": { "type": "string" },
+    "date": { "type": "string", "format": "date" },
+    "cycle_number": { "type": "integer", "minimum": 1 },
+    "phase": { "type": "string", "enum": ["injection", "soak", "production", "idle"] },
+    "oil_rate_m3d": { "type": "number", "minimum": 0 },
+    "water_rate_m3d": { "type": "number", "minimum": 0 },
+    "gas_rate_m3d": { "type": "number", "minimum": 0 },
+    "cum_oil_m3": { "type": "number", "minimum": 0 },
+    "water_cut_fraction": { "type": "number", "minimum": 0, "maximum": 1 },
+    "reservoir_temp_c": { "type": "number" },
+    "bottomhole_pressure_kpa": { "type": "number", "minimum": 0 },
+    "sor": { "type": "number", "minimum": 0 },
+    "provenance": { "type": "string", "enum": ["SYNTHETIC_HISTORICAL", "FIELD_FACT"] }
+  }
+}

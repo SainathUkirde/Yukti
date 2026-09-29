@@ -17,11 +17,11 @@ venv/
 *.db
 *.sqlite3
 
-# ML model artifacts
-models/artifacts/*.pkl
-models/artifacts/*.joblib
-models/artifacts/*.npz
-models/artifacts/*.h5
+# ML model artifacts (tracked for quick cloud deployment)
+# models/artifacts/*.pkl
+# models/artifacts/*.joblib
+# models/artifacts/*.npz
+# models/artifacts/*.h5
 
 # Synthetic data (regenerated at build time)
 data/synthetic/*.parquet

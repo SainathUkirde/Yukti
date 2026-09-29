@@ -1,62 +1,62 @@
 {
-  "accuracy": 0.8975,
-  "f1_macro": 0.8756,
+  "accuracy": 0.86,
+  "f1_macro": 0.8012,
   "f1_per_class": {
-    "fluid_pound": 0.8031,
-    "gas_interference": 0.852,
-    "normal": 0.9281,
-    "pump_off": 0.9117,
-    "pump_unsetting": 0.8525,
-    "rod_floating": 0.9065
+    "fluid_pound": 0.7059,
+    "gas_interference": 0.7059,
+    "normal": 0.9268,
+    "pump_off": 0.8276,
+    "pump_unsetting": 0.7143,
+    "rod_floating": 0.9268
   },
   "confusion_matrix": [
     [
-      104,
-      4,
-      16,
-      4,
-      3,
-      13
-    ],
-    [
-      3,
-      141,
-      14,
-      4,
+      6,
+      0,
       2,
-      7
-    ],
-    [
-      5,
-      4,
-      574,
-      8,
-      2,
-      4
+      0,
+      0,
+      0
     ],
     [
       0,
+      6,
       2,
+      1,
+      0,
+      2
+    ],
+    [
+      0,
+      0,
+      38,
+      0,
+      0,
+      0
+    ],
+    [
+      2,
+      0,
+      0,
       12,
-      222,
-      3,
-      4
+      1,
+      0
+    ],
+    [
+      0,
+      0,
+      2,
+      1,
+      5,
+      0
     ],
     [
       1,
-      4,
-      9,
-      4,
-      104,
-      6
-    ],
-    [
-      2,
-      5,
-      15,
-      2,
-      2,
-      291
+      0,
+      0,
+      0,
+      0,
+      19
     ]
   ],
   "classes": [
@@ -67,7 +67,7 @@
     "pump_unsetting",
     "rod_floating"
   ],
-  "n_train": 6400,
-  "n_val": 1600,
+  "n_train": 400,
+  "n_val": 100,
   "backend": "lightgbm"
 }

@@ -157,7 +157,7 @@ class DynoFaultClassifier:
             X = X.reshape(1, -1)
         proba = self.model.predict_proba(X)[0]
         classes = self.label_encoder.classes_
-        class_probs = {cls: round(float(p), 4) for cls, p in zip(classes, proba)}
+        class_probs = {cls: float(p) for cls, p in zip(classes, proba)}
         pred_idx = int(np.argmax(proba))
         return str(classes[pred_idx]), float(proba[pred_idx]), class_probs
 

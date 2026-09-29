@@ -1,9 +1,9 @@
 services:
   - type: web
-    name: yukti-backend
+    name: yukti
     runtime: python
     rootDir: .
-    buildCommand: pip install -r backend/requirements.txt && python data/generate.py && python ml/training/train_forecaster.py && python ml/training/train_fault_classifier.py && python ml/training/train_failure_risk.py
+    buildCommand: bash build.sh
     startCommand: uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: NUM_WELLS
@@ -17,4 +17,4 @@ services:
       - key: CORS_ORIGINS
         value: "*"
       - key: PYTHON_VERSION
-        value: 3.11.0
+        value: 3.11.9

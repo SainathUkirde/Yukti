@@ -1,0 +1,7 @@
+[build]
+builder = "NIXPACKS"
+
+[deploy]
+startCommand = "python data/generate.py; python ml/training/train_forecaster.py; python ml/training/train_fault_classifier.py; python ml/training/train_failure_risk.py; uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT"
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 3

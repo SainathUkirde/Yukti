@@ -17,7 +17,8 @@ if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument("--reload", action="store_true", default=False)
-    parser.add_argument("--port", type=int, default=8000)
+    port_env = int(os.environ.get("PORT", "8000"))
+    parser.add_argument("--port", type=int, default=port_env)
     args = parser.parse_args()
 
     uvicorn.run(

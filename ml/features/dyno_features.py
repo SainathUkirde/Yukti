@@ -111,8 +111,9 @@ def extract_features(
     dh_std = float(dl.std())
 
     # ── Card areas (shoelace / trapezoid) ─────────────────────────────────
-    surf_area = float(abs(np.trapz(sl, sp)))
-    dh_area = float(abs(np.trapz(dl, dp)))
+    _trapz = np.trapezoid if hasattr(np, "trapezoid") else np.trapz
+    surf_area = float(abs(_trapz(sl, sp)))
+    dh_area = float(abs(_trapz(dl, dp)))
 
     # ── Shape features ────────────────────────────────────────────────────
     mid_up = float(up_load[len(up_load) // 2]) if len(up_load) > 0 else surf_mean
@@ -135,8 +136,8 @@ def extract_features(
     stroke_atten = dh_stroke_range / max(stroke_range, 1e-6)
 
     # ── Load gradient (fluid pound → sharp negative gradient at bottom) ───
-    if len(sl) > 1 and stroke_range > 1e-6:
-        grad = np.gradient(sl, sp)
+    if len(sl) > 1:
+        grad = np.gradient(sl)
         max_grad = float(grad.max())
         min_grad = float(grad.min())
     else:

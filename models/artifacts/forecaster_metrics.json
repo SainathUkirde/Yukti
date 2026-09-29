@@ -1,26 +1,26 @@
 {
   "reservoir_temp_c": {
-    "q50_mae": 0.2643,
-    "q50_rmse": 0.3269,
-    "coverage_80pct": 0.698,
-    "n_train": 3995,
-    "n_val": 999,
+    "q50_mae": 0.5432,
+    "q50_rmse": 1.2951,
+    "coverage_80pct": 0.515,
+    "n_train": 544,
+    "n_val": 136,
     "backend": "lightgbm"
   },
   "oil_viscosity_cp": {
-    "q50_mae": 34.806,
-    "q50_rmse": 42.9761,
-    "coverage_80pct": 0.708,
-    "n_train": 3995,
-    "n_val": 999,
+    "q50_mae": 41.974,
+    "q50_rmse": 52.3338,
+    "coverage_80pct": 0.559,
+    "n_train": 544,
+    "n_val": 136,
     "backend": "lightgbm"
   },
   "oil_rate_m3d": {
-    "q50_mae": 0.0048,
-    "q50_rmse": 0.0062,
-    "coverage_80pct": 0.726,
-    "n_train": 3995,
-    "n_val": 999,
+    "q50_mae": 0.0325,
+    "q50_rmse": 0.1522,
+    "coverage_80pct": 0.537,
+    "n_train": 544,
+    "n_val": 136,
     "backend": "lightgbm"
   }
 }

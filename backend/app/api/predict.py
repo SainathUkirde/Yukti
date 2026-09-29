@@ -10,11 +10,18 @@ from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel, Field
 from typing import Optional
 
-ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 sys.path.insert(0, ROOT)
 
 logger = logging.getLogger("api.predict")
 router = APIRouter()
+
+
+def _trapz(y, x=None):
+    import numpy as np
+    if hasattr(np, "trapezoid"):
+        return np.trapezoid(y, x)
+    return np.trapz(y, x)
 
 
 def _ml(request: Request):
@@ -91,13 +98,13 @@ def _build_dyno_features(state) -> list[float]:
         float(np.mean(sl)),                      # mean_load
         float(np.std(sl)),                       # std_load
         float(np.max(sp) - np.min(sp)),          # stroke_length
-        float(np.trapz(sl, sp)) if len(sp)>1 else 0.0,  # area_surface
+        float(_trapz(sl, sp)) if len(sp)>1 else 0.0,  # area_surface
         float(np.max(dl) - np.min(dl)),          # downhole_load_range
         float(np.max(dl)),                       # downhole_peak
         float(np.min(dl)),                       # downhole_min
         float(np.mean(dl)),                      # downhole_mean
         float(np.std(dl)),                       # downhole_std
-        float(np.trapz(dl, dp)) if len(dp)>1 else 0.0,  # area_downhole
+        float(_trapz(dl, dp)) if len(dp)>1 else 0.0,  # area_downhole
         state.spm,
         state.stroke_length_m,
         state.pump_fillage_fraction,

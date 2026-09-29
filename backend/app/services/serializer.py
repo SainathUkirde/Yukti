@@ -4,7 +4,7 @@ Converts WellStateSnapshot to JSON-serializable dict with provenance tags.
 All numeric values wrapped in {value, provenance, unit} objects.
 """
 import os, sys
-ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 sys.path.insert(0, ROOT)
 
 from simulator.well_system import WellStateSnapshot

@@ -1,9 +1,9 @@
 {
-  "mae": 2.7,
-  "rmse": 5.934,
-  "high_risk_precision": 0.202,
-  "high_risk_recall": 0.973,
-  "n_train": 4163,
-  "n_val": 1041,
+  "mae": 2.123,
+  "rmse": 7.235,
+  "high_risk_precision": 0.148,
+  "high_risk_recall": 0.615,
+  "n_train": 594,
+  "n_val": 149,
   "backend": "xgboost"
 }

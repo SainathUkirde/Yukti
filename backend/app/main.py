@@ -9,7 +9,7 @@ import sys
 import logging
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 
 # Make sure project root is on path
@@ -40,7 +40,7 @@ async def lifespan(app: FastAPI):
     await init_db()
 
     logger.info("Starting simulation service...")
-    n_wells = int(os.getenv("NUM_WELLS", "10"))
+    n_wells = int(os.getenv("NUM_WELLS", "5"))
     time_accel = int(os.getenv("TIME_ACCELERATION", "10"))
     sim_service = SimulationService(n_wells=n_wells, time_acceleration=time_accel)
     sim_service.start()
@@ -67,29 +67,69 @@ app = FastAPI(
 )
 
 # ── CORS ──────────────────────────────────────────────────────────────────────
-origins = os.getenv("CORS_ORIGINS", "http://localhost:5173").split(",")
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+cors_origins_env = os.getenv("CORS_ORIGINS", "*")
+if cors_origins_env == "*":
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],
+        allow_credentials=False,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+else:
+    origins = [o.strip() for o in cors_origins_env.split(",") if o.strip()]
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=origins,
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
 
-# ── Routers ───────────────────────────────────────────────────────────────────
-app.include_router(health.router,           tags=["Health"])
-app.include_router(wells.router,            prefix="/wells",           tags=["Wells"])
-app.include_router(cycles.router,           prefix="/cycles",          tags=["CSS Cycles"])
-app.include_router(predict.router,          prefix="/predict",         tags=["Predictions"])
-app.include_router(optimize.router,         prefix="/optimize",        tags=["Optimization"])
-app.include_router(whatif.router,           prefix="/whatif",          tags=["What-If"])
-app.include_router(recommendations.router,  prefix="/recommendations", tags=["Recommendations"])
-app.include_router(faults.router,           prefix="/faults",          tags=["Faults"])
-app.include_router(report.router,           prefix="/report",          tags=["Reports"])
-app.include_router(assistant.router,        prefix="/assistant",       tags=["AI Assistant"])
-app.include_router(audit.router,                                       tags=["Trust Layer"])
-app.include_router(fatigue.router,                                     tags=["Rod Fatigue"])
-app.include_router(field.router,                                       tags=["Field Planner"])
-app.include_router(data.router,                                        tags=["Calibration"])
-app.include_router(carbon.router,                                      tags=["Carbon & Handover"])
-app.include_router(ws_router,                                          tags=["WebSocket"])
+# ── Routers (mounted both at root and /api for full compatibility) ─────────────
+api_router = APIRouter(prefix="/api")
+
+for r in [
+    (health.router, {}),
+    (wells.router, {"prefix": "/wells"}),
+    (cycles.router, {"prefix": "/cycles"}),
+    (predict.router, {"prefix": "/predict"}),
+    (optimize.router, {"prefix": "/optimize"}),
+    (whatif.router, {"prefix": "/whatif"}),
+    (recommendations.router, {"prefix": "/recommendations"}),
+    (faults.router, {"prefix": "/faults"}),
+    (report.router, {"prefix": "/report"}),
+    (assistant.router, {"prefix": "/assistant"}),
+    (audit.router, {}),
+    (fatigue.router, {}),
+    (field.router, {}),
+    (data.router, {}),
+    (carbon.router, {}),
+]:
+    router_obj, kwargs = r
+    app.include_router(router_obj, **kwargs)
+    api_router.include_router(router_obj, **kwargs)
+
+app.include_router(api_router)
+app.include_router(ws_router, tags=["WebSocket"])
+
+# ── Static Files (Frontend SPA) ───────────────────────────────────────────────
+frontend_dist = os.path.join(ROOT, "frontend", "dist")
+if os.path.isdir(frontend_dist):
+    from fastapi.staticfiles import StaticFiles
+    from starlette.responses import FileResponse
+
+    assets_dir = os.path.join(frontend_dist, "assets")
+    if os.path.isdir(assets_dir):
+        app.mount("/assets", StaticFiles(directory=assets_dir), name="assets")
+
+    @app.get("/{full_path:path}", include_in_schema=False)
+    async def serve_spa(full_path: str):
+        file_path = os.path.join(frontend_dist, full_path)
+        if full_path and os.path.isfile(file_path):
+            return FileResponse(file_path)
+        index_file = os.path.join(frontend_dist, "index.html")
+        if os.path.isfile(index_file):
+            return FileResponse(index_file)
+        return {"message": "YUKTI API running"}
+
